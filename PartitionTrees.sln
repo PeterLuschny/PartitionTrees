@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartitionTrees", "PartitionStructures\PartitionTrees.csproj", "{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartitionExplorer", "PartitionExplorer\PartitionExplorer.csproj", "{FB148ED8-F218-44F7-8B8D-6955774FF439}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9} = {3E5A38F2-CD96-4EEF-9E95-36F792861ED9}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Debug|Any CPU.Build.0 = Debug|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Debug|x86.ActiveCfg = Debug|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Debug|x86.Build.0 = Debug|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Release|Any CPU.ActiveCfg = Release|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Release|Any CPU.Build.0 = Release|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Release|Mixed Platforms.Build.0 = Release|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Release|x86.ActiveCfg = Release|x86
+		{3E5A38F2-CD96-4EEF-9E95-36F792861ED9}.Release|x86.Build.0 = Release|x86
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FB148ED8-F218-44F7-8B8D-6955774FF439}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
