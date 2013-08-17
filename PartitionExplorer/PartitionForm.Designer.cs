@@ -127,7 +127,7 @@
             // 
             this.traverseBox.Controls.Add(this.radioLeftRight);
             this.traverseBox.Controls.Add(this.radioRightLeft);
-            this.traverseBox.Location = new System.Drawing.Point(16, 449);
+            this.traverseBox.Location = new System.Drawing.Point(16, 442);
             this.traverseBox.Name = "traverseBox";
             this.traverseBox.Size = new System.Drawing.Size(202, 87);
             this.traverseBox.TabIndex = 1;
@@ -213,7 +213,7 @@
             // 
             // buttonRun
             // 
-            this.buttonRun.Location = new System.Drawing.Point(54, 601);
+            this.buttonRun.Location = new System.Drawing.Point(54, 592);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.Size = new System.Drawing.Size(119, 32);
             this.buttonRun.TabIndex = 4;
@@ -223,7 +223,7 @@
             // 
             // numericUpDown
             // 
-            this.numericUpDown.Location = new System.Drawing.Point(54, 553);
+            this.numericUpDown.Location = new System.Drawing.Point(54, 548);
             this.numericUpDown.Maximum = new decimal(new int[] {
             16,
             0,
@@ -273,6 +273,7 @@
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer.Panel1.Controls.Add(this.comboBoxOEIS);
             this.splitContainer.Panel1.Controls.Add(this.numericUpDown);
             this.splitContainer.Panel1.Controls.Add(this.buttonRun);
@@ -283,7 +284,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.richTextBox);
-            this.splitContainer.Size = new System.Drawing.Size(572, 654);
+            this.splitContainer.Size = new System.Drawing.Size(572, 643);
             this.splitContainer.SplitterDistance = 229;
             this.splitContainer.TabIndex = 0;
             // 
@@ -296,17 +297,17 @@
             this.richTextBox.Location = new System.Drawing.Point(8, 12);
             this.richTextBox.Name = "richTextBox";
             this.richTextBox.ReadOnly = true;
-            this.richTextBox.Size = new System.Drawing.Size(319, 621);
+            this.richTextBox.Size = new System.Drawing.Size(319, 612);
             this.richTextBox.TabIndex = 0;
             this.richTextBox.Text = "";
             // 
-            // PartitionUI
+            // PartitionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 654);
+            this.ClientSize = new System.Drawing.Size(572, 643);
             this.Controls.Add(this.splitContainer);
-            this.Name = "PartitionUI";
+            this.Name = "PartitionForm";
             this.Text = "Partition Trees";
             this.orderBox.ResumeLayout(false);
             this.traverseBox.ResumeLayout(false);

@@ -1,30 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// -------  ToujoursEnBeta
+/// Author & Copyright : Peter Luschny
+/// License: Creative Commons Attribution-ShareAlike 3.0
+/// Comments mail to: peter(at)luschny.de
+/// Created: 2013-08-16
+
+using System;
 using System.Windows.Forms;
 
 namespace Luschny.Tree
 {
-    using Tour = Luschny.Tree.BinaryTreeTraversal<System.Collections.Generic.List<int>>;
+    using BinTree = Luschny.Tree.BinaryTree<System.Collections.Generic.List<int>>;
+    using Direction = Luschny.Tree.PartitionTreeShowcase.Direction;
     using Generator = Luschny.Tree.PartitionTreeShowcase;
+    using Tour = Luschny.Tree.BinaryTreeTraversal<System.Collections.Generic.List<int>>;
     using Traversal = Luschny.Tree.PartitionTreeShowcase.Traversal;
     using Visitor = Luschny.Tree.PartitionTreeShowcase.Visitor;
-    using Direction = Luschny.Tree.PartitionTreeShowcase.Direction;
 
     /// <summary>
-    /// PartitionUI
+    /// PartitionForm
     /// </summary>
     public partial class PartitionForm : Form
     {
+        private BinTree tree;
         private Traversal traversal;
         private Visitor visitor;
         private Direction direction;
-        private int n;
+        private int n, lastn;
         private int seq;
         private bool direct;
 
@@ -46,10 +47,11 @@ namespace Luschny.Tree
             radioRightLeft.Checked = true;
 
             n = 6;
+            lastn = n - 1;
             numericUpDown.Value = n;
             direct = true;
 
-            Generator.setPrinter(WriteLineToBox);
+            Generator.SetPrinter(WriteLineToBox);
         }
 
         private void radioPre_CheckedChanged(object sender, EventArgs e)
@@ -183,10 +185,16 @@ namespace Luschny.Tree
                 WriteLineToBox(oeis[seq - 1].Item1);
             }
 
-            var tree = Partitions.PartitionTree(n);
+            if (n != lastn)
+            {
+                tree = Partitions.PartitionTree(n);
+                lastn = n;
+            }
+
             var tour = new Tour(tree);
             Generator.Traverse(tour, traversal, visitor, direction);
-            WriteLineToBox("Number of partitions: " + tree.Count(tree.GetRoot()).ToString());
+            var count = tree.Count(tree.GetRoot()).ToString();
+            WriteLineToBox("Number of partitions: " + count);
             WriteLineToBox("");
         }
 

@@ -1,4 +1,9 @@
-﻿
+﻿/// -------  ToujoursEnBeta
+/// Author & Copyright : Peter Luschny
+/// License: Creative Commons Attribution-ShareAlike 3.0
+/// Comments mail to: peter(at)luschny.de
+/// Created: 2013-08-16
+
 namespace Luschny.Tree
 {
     using System;
@@ -100,7 +105,7 @@ namespace Luschny.Tree
                 if (part.num1s != 1)
                 {
                     var q = new Partition(part, true);
-                    var list = Expand(q.head, q.num1s);
+                    var list = PartitionToList(q.head, q.num1s);
                     var leftChild = tree.CreateLeftChild(list, parent);
                     // Publish(part, q, ++count);
 
@@ -116,7 +121,7 @@ namespace Luschny.Tree
                 && (part.head[part.headLen - 1] != part.head[part.headLen - 2])))
                 {
                     var q = new Partition(part, false);
-                    var list = Expand(q.head, q.num1s);
+                    var list = PartitionToList(q.head, q.num1s);
                     var rightChild = tree.CreateRightChild(list, parent);
                     // Publish(part, q, ++count);
 
@@ -130,7 +135,7 @@ namespace Luschny.Tree
             return tree;
         }
 
-        private static List<int> Expand(int[] head, int num1s)
+        private static List<int> PartitionToList(int[] head, int num1s)
         {
             var l = new List<int>(head);
             for (var i = 0; i < num1s; i++)
@@ -161,6 +166,29 @@ namespace Luschny.Tree
             Console.WriteLine();
         }
 
+        ///////////////////// PrimeEncoding
+
+        private static int[] primes =
+            new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 };
+
+        private static string PrimeEncoding(Partition p)
+        {
+            int i = 0;
+            long z = 1;
+
+            foreach (int part in p.head)
+            {
+                z *= (long)Math.Pow(primes[i++], part);
+            }
+            for (var j = 0; j < p.num1s; j++)
+            {
+                z *= primes[i++];
+            }
+           
+            return z.ToString();
+        }
+
+        ////////////////////////////////
         public static List<int> Conjugate(List<int> p)
         {
             var l = p.Count;
@@ -185,6 +213,12 @@ namespace Luschny.Tree
                 r.Add(p[i]);
             }
             return r;
+        }
+
+        // Filter-predicate returns true if a partition has singletons.
+        public static bool SingletonFree(List<int> p)
+        {
+            return p[0] != 1 && p[p.Count - 1] != 1;
         }
     }
 

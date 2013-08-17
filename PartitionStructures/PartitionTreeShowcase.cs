@@ -1,4 +1,9 @@
-﻿
+﻿/// -------  ToujoursEnBeta
+/// Author & Copyright : Peter Luschny
+/// License: Creative Commons Attribution-ShareAlike 3.0
+/// Comments mail to: peter(at)luschny.de
+/// Created: 2013-08-16
+
 namespace Luschny.Tree
 {
     using System;
@@ -8,7 +13,7 @@ namespace Luschny.Tree
     using Partition = System.Collections.Generic.List<int>;
     using OeisPartition = System.Tuple<string, Luschny.Tree.PartitionTreeShowcase.Traversal, Luschny.Tree.PartitionTreeShowcase.Visitor, Luschny.Tree.PartitionTreeShowcase.Direction>;
 
-    public class PartitionTreeShowcase
+    public static class PartitionTreeShowcase
     {
         // Provides the set of values by which a binary tree can be enumerated.
 
@@ -45,53 +50,47 @@ namespace Luschny.Tree
                 Traversal.PreOrder,  Visitor.Partition, Direction.LeftRight)
         };
 
-        public static void Traverse(Tour tour, Traversal tm, Visitor vm, Direction d)
-        {
-            Tour.Visitor visitor;
+        public delegate bool Filter(Partition x);
+        private static Filter filter;
 
+        public static void Traverse(Tour tour, Traversal tm, Visitor vm, Direction d, Filter f = null)
+        {
             WriteHeader(tm.ToString() + " - " + vm.ToString() + " - " + d.ToString());
+
+            if (f == null) filter = v => true; else filter = f;
 
             switch (vm)
             {
-                case Visitor.Partition: visitor = PrintPartition;
-                    break;
-                case Visitor.Conjugate: visitor = ConjugatedPartition;
-                    break;
-                case Visitor.Reverse: visitor = ReversedPartition;
-                    break;
-                case Visitor.ReverseConjugate: visitor = ReversedConjugatedPartition;
-                    break;
-                default: visitor = PrintPartition;
-                    break;
+                case Visitor.Partition: tour.visit = StandardPartition; break;
+                case Visitor.Conjugate: tour.visit = ConjugatedPartition; break;
+                case Visitor.Reverse: tour.visit = ReversedPartition; break;
+                case Visitor.ReverseConjugate: tour.visit = ReversedConjugatedPartition; break;
+                default: tour.visit = PrintPartition; break;
             }
-
-            tour.visit = visitor;
 
             switch (tm)
             {
                 case Traversal.PreOrder:
-                    if (d == Direction.LeftRight) tour.PreorderLRTraversal(); 
+                    if (d == Direction.LeftRight) tour.PreorderLRTraversal();
                     else tour.PreorderRLTraversal();
                     break;
                 case Traversal.InOrder:
-                    if (d == Direction.LeftRight) tour.InorderLRTraversal(); 
+                    if (d == Direction.LeftRight) tour.InorderLRTraversal();
                     else tour.InorderRLTraversal();
                     break;
                 case Traversal.PostOrder:
-                    if (d == Direction.LeftRight) tour.PostorderLRTraversal(); 
+                    if (d == Direction.LeftRight) tour.PostorderLRTraversal();
                     else tour.PostorderRLTraversal();
                     break;
                 case Traversal.LevelOrder:
-                    if (d == Direction.LeftRight) tour.LevelorderLRTraversal(); 
+                    if (d == Direction.LeftRight) tour.LevelorderLRTraversal();
                     else tour.LevelorderRLTraversal();
                     break;
                 case Traversal.BranchOrder:
-                    if (d == Direction.LeftRight) tour.BranchorderLRTraversal(); 
+                    if (d == Direction.LeftRight) tour.BranchorderLRTraversal();
                     else tour.BranchorderRLTraversal();
                     break;
             }
-
-            // WriteFooter();
         }
 
         public static void ShowAllTraversals(PartitionTree tree)
@@ -121,53 +120,43 @@ namespace Luschny.Tree
 
         //////////////////// Visitors
 
-        // Partition visitor
-        private static void PrintPartition(Partition p)
+        // Standard visitor
+        private static void StandardPartition(Partition p)
         {
-            string ps = ToString(p);
-            WriteLine(ps);
-            tr += ps;
-
-            // pr += PrimeEncoding(p) + ",";
+            PrintPartition(p); 
         }
 
         // Conjugate visitor
         private static void ConjugatedPartition(Partition partition)
         {
-            PrintPartition(Partitions.Conjugate(partition));
+            var p = Partitions.Conjugate(partition);
+            PrintPartition(p); 
         }
 
         // Reverse visitor
         private static void ReversedPartition(Partition partition)
         {
-            PrintPartition(Partitions.Reverse(partition));
+            var p = Partitions.Reverse(partition);
+            PrintPartition(p); 
         }
 
         // Reverse-conjugate visitor
         private static void ReversedConjugatedPartition(Partition partition)
         {
-            PrintPartition(Partitions.Reverse(Partitions.Conjugate(partition)));
-        }
-
-        ///////////////////// PrimeEncoding
-
-        private static int[] primes =
-            new int[] {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47};
-
-        private static string PrimeEncoding(Partition partition)
-        {
-            int i = 0;
-            long z = 1;
-            foreach (var p in partition)
-            {
-                z *= (long)Math.Pow(primes[i++], p);
-            }
-            return z.ToString();
+            var p = Partitions.Reverse(Partitions.Conjugate(partition));
+            PrintPartition(p); 
         }
 
         ////////////////////////// Text/Format
 
-        private static string tr, pr;
+        private static void PrintPartition(Partition p)
+        {
+            if (filter(p))
+            {
+                string ps = ToString(p);
+                WriteLine(ps);
+            }
+        }
 
         private static string ToString(Partition partition)
         {
@@ -182,22 +171,7 @@ namespace Luschny.Tree
         private static void WriteHeader(string name)
         {
             WriteLine(name);
-            tr = "";
-            pr = "";
         }
-
-        private static void WriteFooter()
-        {
-            WriteLine("----");
-            WriteLine(tr);
-            WriteLine("----");
-
-            //-- Show prime encodings
-            WriteLine(pr);
-            WriteLine("----");
-        }
-
-        ////////////////////////////////
 
         static void OeisPartitions()
         {
@@ -248,7 +222,7 @@ namespace Luschny.Tree
 
         public delegate void Printer(string text);
         private static Printer WriteLine;
-        public static void setPrinter(Printer writer)
+        public static void SetPrinter(Printer writer)
         {
             WriteLine = writer;
         }
